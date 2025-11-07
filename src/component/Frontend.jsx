@@ -15,14 +15,15 @@ function Frontend() {
 
     } else {
 
-      setExpenses([...expenses, { name, amount }]);
+      setExpenses([...expenses, { id:Date.now(), name, amount }]);
       nameRef.current.value = "";
       amountRef.current.value = "";
     }
+    
   };
 // delete expense
-  const deleteExpense = (itemexp) => {
-    setExpenses(expenses.filter((exp) => exp.item != itemexp));
+  const deleteExpense = (id) => {
+    setExpenses(expenses?.filter(item=>item.id !=id));
   };
 // total expense
   const total = expenses.reduce((sum, exp) => sum + Number(exp.amount), 0);
@@ -46,7 +47,7 @@ function Frontend() {
             expenses.map((exp) => (
               <div className="border rounded ">
                 <button className="btn  my-2 fw-bold fs-5 px-5 py-2">{exp.name}:₹{exp.amount}</button>
-                <RiDeleteBin5Fill className="text-danger ms-3 fs-3" onClick={() => deleteExpense(exp.itemexp)} />
+                <RiDeleteBin5Fill className="text-danger ms-3 fs-3" onClick={() => deleteExpense(exp.id)} />
               </div>
             ))}
           <div className=" d-flex align-items-center justify-content-evenly">
